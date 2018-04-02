@@ -44,16 +44,17 @@ def submitted():
     # TODO:
     # add email conditions to validation
 
-    if username_error == '':
+    if username_error == password_error and v_password_error == email_error:
         return redirect('/welcome')
 
     else:
         return render_template('signup_form.html', username=username, email=email,
-            username_error=username_error, password_error=password_error, v_password_error=v_password_error,
-            email_error=email_error)
+            username_error=username_error, password_error=password_error, 
+            v_password_error=v_password_error, email_error=email_error)
 
-@app.route('/welcome')
+@app.route('/welcome', methods=['POST'])
 def welcome():
-    return '<h1>Welcome!</h1>'
+    username = request.form['username']
+    return render_template('welcome.html', username=username)
 
 app.run()
